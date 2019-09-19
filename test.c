@@ -107,7 +107,7 @@ int checkfuture(char c, char d){
         return 1;
     }
     if((c == '|') && (d == '|')){
-        printf("%c%c - GE\n", c, d);
+        printf("%c%c - OR\n", c, d);
         return 1;
     }
     return 0;
@@ -124,8 +124,8 @@ int main() {
     int tkni = 0, i = 0;
     char c;
    
-    // printf(" file name: ");
-    // gets(filename);
+    printf(" file name: ");
+    gets(filename);
 
     file = fopen(filename, "r");
     int z = 0;

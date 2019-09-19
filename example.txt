@@ -5,5 +5,10 @@
         do a = a+1; while(a>100);
         a && b;
         (a <= b && c >= d);
+        for(int i = 0; i<count; i++){
+            if(true || false){
+                float do; nothing
+            }
+        }
     }
 }
