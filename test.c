@@ -95,8 +95,8 @@ int main() {
     int tkni = 0, i = 0;
     char c;
    
-    printf(" file name: ");
-    gets(filename);
+    // printf(" file name: ");
+    // gets(filename);
 
     file = fopen(filename, "r");
     int z = 0;
@@ -112,36 +112,49 @@ int main() {
     {
         
         c = str[i];
+        if(c != '\n'){
+            // quickfix for breakline making output ugly. 
+            // program does nothing if 'c' is '\n'
         
-        if(isDelimiter(c)){
-            //if 'c' is a delimiter, prints the delimiter
-            //avoids printing white spaces, in order to look cleaner
-            if(c != ' '){
-                printf("%c   %c", c, c);
-                printf("\n");
+            if((c == '=') && (str[i+1] == '=')){
+                printf("%c%c - EQUAL\n", c, str[i+1]);
+                i++;
             }
-        }
-        else{
-            //if 'c' is not reconigzed as delimiter, adds to string 'token', untill the future character is delimiter
-            //once future character delimiter, prints token
-            token[tkni] = c;
-            tkni++;
-            // printf("%c",c);
-            if(isDelimiter(str[i+1])){
-                printf("%s", token);
-                tkni = 0;
+            if(c == '&' && str[i+1] == '&'){
+                printf("%c%c - AND\n", c, str[i+1]);
+                i++;
+            }
+            else if(isDelimiter(c)){
+                //if 'c' is a delimiter, prints the delimiter
+                //avoids printing white spaces, in order to look cleaner
+                if(c != ' '){
+                    printf("%c   %c", c, c);
+                    printf("\n");
+                }
                 
-                //call function to reconignize identifier
-                if(isalpha(token[0])){
-                    //define which token name use if variable token is not a number
-                    alphadefinition(token);
+            }
+            else{
+                //if 'c' is not reconigzed as delimiter, adds to string 'token', untill the future character is delimiter
+                //once future character delimiter, prints token
+                token[tkni] = c;
+                tkni++;
+                // printf("%c",c);
+                if(isDelimiter(str[i+1])){
+                    printf("%s", token);
+                    tkni = 0;
+                    
+                    //call function to reconignize identifier
+                    if(isalpha(token[0])){
+                        //define which token name use if variable token is not a number
+                        alphadefinition(token);
+                    }
+                    if(isdigit(token[0])){
+                        //define which token name use if variable token is a number
+                        isreal(token);
+                    }
+                    memset(token, 0, sizeof(token)); //clean variable token, to be ready for next use.
+                    printf("\n");
                 }
-                if(isdigit(token[0])){
-                    //define which token name use if variable token is a number
-                    isreal(token);
-                }
-                memset(token, 0, sizeof(token)); //clean variable token, to be ready for next use.
-                printf("\n");
             }
         }
     }
