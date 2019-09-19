@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+
 int isDelimiter(char c){
     int delimiter = 0;
     if (c == ' '){
@@ -31,24 +32,72 @@ void alphadefinition(char c[]){
     else if (strcmp(c, "do") == 0){
         printf(" - DO");
     }
+    else if (strcmp(c, "else") == 0){
+        printf(" - ELSE");
+    }
+    else if (strcmp(c, "break") == 0){
+        printf(" - BREAK");
+    }
+    else if (strcmp(c, "false") == 0){
+        printf(" - FALSE");
+    }
+    else if (strcmp(c, "for") == 0){
+        printf(" - FOR");
+    }
+    else if (strcmp(c, "if") == 0){
+        printf(" - IF");
+    }
+    else if (strcmp(c, "true") == 0){
+        printf(" - TRUE");
+    }
     else{
         printf(" - ID");
     }
 }
 
+void isreal(char c[]){
+
+    for (int i = 0; i < strlen(c); i++)
+    {
+        if(c[i] == '.'){
+            printf(" - REAL");
+            return ;
+        }
+    }
+    printf(" - NUM");
+    return ;
+    
+}
+
+
 int main() {
-    char str[] = {" { int b; b = 1; { int a; a = 2; do a = a+1; while (a < 100); }"};
+    char str[500];
+    
     char token[15];
     char clear[15];
-    int tkni = 0;
+    char filename[] = "example.txt";
+    FILE *file;
+    int tkni = 0, i = 0;
     char c;
-    char it[] = {"int"};
-    printf("-----Começo-----\n");
+   
+    printf(" file name: ");
+    gets(filename);
+
+    file = fopen(filename, "r");
+    int z = 0;
+    while((c = fgetc(file)) != EOF ){
+        str[z] = c;
+        z++;
+    }
+
+
+
+    printf("-----start-----\n");
     for (int i = 0; i < strlen(str); i++)
     {
         
         c = str[i];
-
+        
         if(isDelimiter(c)){
             if(c != ' '){
                 printf("%c   %c", c, c);
@@ -60,7 +109,7 @@ int main() {
             tkni++;
             // printf("%c",c);
             if(isDelimiter(str[i+1])){
-                printf("%s", token, (int)strlen(token));
+                printf("%s", token);
                 tkni = 0;
                 
                 //call function to reconignize identifier
@@ -68,21 +117,15 @@ int main() {
                     alphadefinition(token);
                 }
                 if(isdigit(token[0])){
-                    printf(" - DIGIT");
+                    isreal(token);
+                    // printf(" - NUM");
                 }
-                
-                
-
-                
-
                 memset(token, 0, sizeof(token));
                 printf("\n");
             }
         }
     }
-    printf("\n-----Fim-----\n");
-
-
+    printf("\n-----end-----\n");
 
     return 0;
 }
