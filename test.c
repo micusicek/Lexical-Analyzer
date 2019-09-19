@@ -141,8 +141,7 @@ int main() {
     {
         
         c = str[i];
-        if(c != '\n'){
-            // quickfix for breakline making output ugly. 
+        if(c != '\n'){ 
             // program does nothing if 'c' is '\n'
 
 
