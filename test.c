@@ -5,6 +5,11 @@
 
 
 int isDelimiter(char c){
+/*
+    Idetify if charecter read is considered a delimiter.
+    If yes, returns 1 (true);
+    If no , returns 0 (false)
+*/
     int delimiter = 0;
     if (c == ' '){
         return delimiter = 1;
@@ -22,6 +27,12 @@ int isDelimiter(char c){
 }
 
 void alphadefinition(char c[]){
+/*
+    Definition of all the possible outcomes involving letters
+    Each 'if statements' compares variable 'c' with a possible symbolic pattern,
+    If pattern is found, it will print the token name,
+    Otherwise, prints 'ID' 
+*/
     if (strcmp(c, "int") == 0 || strcmp(c, "float") == 0 || strcmp(c, "bool") == 0 )
     {
         printf(" - BASE_TYPE");
@@ -56,7 +67,11 @@ void alphadefinition(char c[]){
 }
 
 void isreal(char c[]){
-
+/*
+    Reads variable 'c' and looks for a '.' (dot)
+    If found, 'c' is a float number, therefore prints '- REAL'
+    If not, prints '- NUM'
+*/
     for (int i = 0; i < strlen(c); i++)
     {
         if(c[i] == '.'){
@@ -99,12 +114,16 @@ int main() {
         c = str[i];
         
         if(isDelimiter(c)){
+            //if 'c' is a delimiter, prints the delimiter
+            //avoids printing white spaces, in order to look cleaner
             if(c != ' '){
                 printf("%c   %c", c, c);
                 printf("\n");
             }
         }
         else{
+            //if 'c' is not reconigzed as delimiter, adds to string 'token', untill the future character is delimiter
+            //once future character delimiter, prints token
             token[tkni] = c;
             tkni++;
             // printf("%c",c);
@@ -114,13 +133,14 @@ int main() {
                 
                 //call function to reconignize identifier
                 if(isalpha(token[0])){
+                    //define which token name use if variable token is not a number
                     alphadefinition(token);
                 }
                 if(isdigit(token[0])){
+                    //define which token name use if variable token is a number
                     isreal(token);
-                    // printf(" - NUM");
                 }
-                memset(token, 0, sizeof(token));
+                memset(token, 0, sizeof(token)); //clean variable token, to be ready for next use.
                 printf("\n");
             }
         }
