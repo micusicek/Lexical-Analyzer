@@ -85,6 +85,35 @@ void isreal(char c[]){
 }
 
 
+int checkfuture(char c, char d){
+    if((c == '=') && (d == '=')){
+        printf("%c%c - EQUAL\n", c, d);
+        return 1;
+    }
+    if((c == '&') && (d == '&')){
+        printf("%c%c - AND\n", c, d);
+        return 1;
+    }
+    if((c == '>') && (d == '=')){
+        printf("%c%c - GE\n", c, d);
+        return 1;
+    }
+    if((c == '<') && (d == '=')){
+        printf("%c%c - LE\n", c, d);
+        return 1;
+    }
+    if((c == '!') && (d == '=')){
+        printf("%c%c - NE\n", c, d);
+        return 1;
+    }
+    if((c == '|') && (d == '|')){
+        printf("%c%c - GE\n", c, d);
+        return 1;
+    }
+    return 0;
+}
+
+
 int main() {
     char str[500];
     
@@ -115,25 +144,22 @@ int main() {
         if(c != '\n'){
             // quickfix for breakline making output ugly. 
             // program does nothing if 'c' is '\n'
-        
-            if((c == '=') && (str[i+1] == '=')){
-                printf("%c%c - EQUAL\n", c, str[i+1]);
+
+
+            if(checkfuture(c, str[i+1])){
                 i++;
-            }
-            if(c == '&' && str[i+1] == '&'){
-                printf("%c%c - AND\n", c, str[i+1]);
-                i++;
-            }
-            else if(isDelimiter(c)){
-                //if 'c' is a delimiter, prints the delimiter
-                //avoids printing white spaces, in order to look cleaner
-                if(c != ' '){
-                    printf("%c   %c", c, c);
-                    printf("\n");
-                }
-                
             }
             else{
+                if(isDelimiter(c)){
+                    //if 'c' is a delimiter, prints the delimiter
+                    //avoids printing white spaces, in order to look cleaner
+                    if(c != ' '){
+                        printf("%c   %c", c, c);
+                        printf("\n");
+                    }
+                    
+                }
+                else{
                 //if 'c' is not reconigzed as delimiter, adds to string 'token', untill the future character is delimiter
                 //once future character delimiter, prints token
                 token[tkni] = c;
@@ -156,6 +182,8 @@ int main() {
                     printf("\n");
                 }
             }
+            }        
+
         }
     }
     printf("\n-----end-----\n");

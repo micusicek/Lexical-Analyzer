@@ -1,8 +1,9 @@
 {
-    int b; b = 1;
+    int b; if (b == 1);
     {
         int a; a = 2;
         do a = a+1; while(a>100);
         a && b;
+        (a <= b && c >= d);
     }
 }
